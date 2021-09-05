@@ -23,7 +23,26 @@ function insertsortalgo(array, to_insert )
     return array
 end
 
+# The following lines test the above function.
+#=
 fileCabinet = [1, 2, 2, 3, 3, 4, 6, 8, 12]
 toInsert = 5
 newcabinet = insertsortalgo(fileCabinet, toInsert)
 print(newcabinet)
+=#
+
+function insertion_sort(array)
+    sorted_array = []
+    j = 1
+    while length(array) > 1
+        #to_insert = deleteat!(array, 1)
+        #to_insert = filter( x -> x == array[1], array )
+
+        sorted_array = insertsortalgo(sorted_array, to_insert)
+    end
+    return sorted_array
+end
+
+cabinet = [8, 4, 6, 1, 2, 5, 3, 7]
+sortedcabinet = insertion_sort(cabinet)
+print(sortedcabinet)
