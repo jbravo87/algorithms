@@ -34,15 +34,21 @@ print(newcabinet)
 function insertion_sort(array)
     sorted_array = []
     j = 1
-    while length(array) > 1
-        #to_insert = deleteat!(array, 1)
-        #to_insert = filter( x -> x == array[1], array )
-
+    while length(array) > j-1
+        to_insert = array[j]
         sorted_array = insertsortalgo(sorted_array, to_insert)
+        j += 1
     end
     return sorted_array
 end
 
+#=
 cabinet = [8, 4, 6, 1, 2, 5, 3, 7]
 sortedcabinet = insertion_sort(cabinet)
 print(sortedcabinet)
+=#
+
+# Following is a test for the final function.
+someArray = [3, 54, 678, 990, 23, 35, 6, 3, 1, 2, 78, 123, 144, 1, 2, 2, 87]
+x=insertion_sort(someArray)
+print(x)
