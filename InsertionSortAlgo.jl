@@ -2,6 +2,9 @@
 A version of the Insertion SOrt algorithm.
 Note that the array input into argument of the function will not
 be sorted before giving it a new element to put into the array.
+
+Insertion-Sort Algorithm. Has two functions. First will insert an element
+in an array. The second will use the first to sort an entire unsorted array.
 =#
 
 function insertsortalgo(array, to_insert )
@@ -52,3 +55,6 @@ print(sortedcabinet)
 someArray = [3, 54, 678, 990, 23, 35, 6, 3, 1, 2, 78, 123, 144, 1, 2, 2, 87]
 x=insertion_sort(someArray)
 print(x)
+
+# Following line measures the time for the function to run
+@time insertion_sort(someArray)
