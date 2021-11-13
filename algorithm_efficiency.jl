@@ -5,6 +5,7 @@ required to execute the algorithm.
 
 # Import necessary libraries
 using Random
+using Plots
 
 function first_sort(array, to_insert )
     # Length of the array stored into variable.
@@ -35,6 +36,7 @@ function insert_sort(array)
     global stepcounter
     j = 1
     while length(array) > j-1
+        stepcounter += 1
         to_insert = array[j]
         sorted_array = first_sort(sorted_array, to_insert)
         j += 1
@@ -52,8 +54,47 @@ function check_steps(array_size)
     cabinet = rand(0:100, array_size)
     global stepcounter
     stepcounter = 0
-    sortedcabinet = insertion_sort(cabinet)
+    sortedcabinet = insert_sort(cabinet)
     return stepcounter
 end
 
+arraySize = 10
 c1 = rand(0:1000, arraySize)
+y1 = [y for y in 1:10]
+
+x1 = insert_sort(c1)
+
+# Testing the function
+check_steps(1158)
+
+typeof(c1)
+
+#x2 = rand(0:100, arraySize)
+#x3 = insert_sort(x2)
+#y2 = [check_steps(i) for i in x3]
+#print(y2)
+
+x4 = []
+for j = 1:100
+    push!(x4, j)
+end
+
+# Making sure it is a list
+typeof(x4)
+
+y4 = [check_steps(i) for i in x4]
+
+# Plotting
+#plot(x3, y2, color = :darkviolet,
+#             title = "Steps Required for Insertion Sort for Random Array",
+#             xlabel = "Number of Elements in Random Array",
+#             ylabel = "Steps Required to Sort Array by Insertion Sort",
+#             legend = false,
+#             lw = 1)
+
+plot(x4, y4, color = :darkorange,
+             title = "Steps Required for Insertion Sort for Random Array",
+             xlabel = "Number of Elements in Random Array",
+             ylabel = "Steps Required to Sort Array by Insertion Sort",
+             legend = false,
+             lw = 1)
