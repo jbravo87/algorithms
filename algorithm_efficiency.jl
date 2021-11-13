@@ -74,6 +74,8 @@ typeof(c1)
 #y2 = [check_steps(i) for i in x3]
 #print(y2)
 
+#  First initiate empty array then for loop to
+# fill with integers from 1 to 100.
 x4 = []
 for j = 1:100
     push!(x4, j)
@@ -92,9 +94,51 @@ y4 = [check_steps(i) for i in x4]
 #             legend = false,
 #             lw = 1)
 
-plot(x4, y4, color = :darkorange,
+# Comparing it to the exponential function
+y4_exp = [exp(x) for x in x4]
+
+# Supremum of an array
+maximum(y4)
+# Infimum of an array
+minimum(y4)
+
+# Last element of the array
+last(y4)
+
+plot(x4, y4, ylim=(minimum(y4), maximum(y4)),
+             color = :darkorange,
              title = "Steps Required for Insertion Sort for Random Array",
              xlabel = "Number of Elements in Random Array",
              ylabel = "Steps Required to Sort Array by Insertion Sort",
-             legend = false,
+             label = "Insert Sort Algo",
              lw = 1)
+
+# Adding the exponential model
+plot!(y4_exp, color=:roma, label = "Exponential Model")
+
+#=
+Can see how growth of the number of steps required to sort
+a list relates to true exponential growth
+=#
+
+# Linear Model
+plot!(x4, x4, color=:firebrick, label = "Linear (x4)") # No error here
+
+# Establish squared model
+x_squared = [i^2 for i in x4]
+
+# Create threehalves model
+x_threehalves = [j^1.5 for j in x4]
+
+# Create cubed model
+x_cubed = [k^3 for k in x4]
+
+# The following will add the other models to the primary plot
+plot!(x4, x_squared, color=:cyan3, label = "Squared")
+plot!(x4, x_threehalves, color=:limegreen, label = "Three Halves Power")
+plot!(x4, x_cubed, color=:rebeccapurple, label = "Cubed")
+
+#=
+Final plot includes 5 growth models.
+The insertion sort is between x^1.5 and x^2 models.
+=#
