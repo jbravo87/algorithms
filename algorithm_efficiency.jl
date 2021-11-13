@@ -142,3 +142,6 @@ plot!(x4, x_cubed, color=:rebeccapurple, label = "Cubed")
 Final plot includes 5 growth models.
 The insertion sort is between x^1.5 and x^2 models.
 =#
+
+#save plot as portable network graphic
+png("C:\\Users\\Tech\\Desktop\\algorithm_efficiency.png")
