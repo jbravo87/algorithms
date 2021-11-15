@@ -73,7 +73,7 @@ at end of new array in current order.
 # Now, to combine all the logic into one cohesive function.
 function merging_sort(left_array, right_array)
 	new_array = []
-	while min(length(left_array), length(right_array)) > 1
+	while min(length(left_array), length(right_array)) > 0
 		if (left_array[1] > right_array[1])
 			to_insert = right_array[1]
 			push!(new_array, to_insert)
