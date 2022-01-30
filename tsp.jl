@@ -113,3 +113,10 @@ plot!(xlabel = "x coordinate")
 plot!(ylabel = "y coordinate")
 plot!(title = "tsp - random itinerary")
 
+# Will now implement the nearest neighbor algorithm.
+# Following will lead to function that finds the nearest neighbor
+point = [0.5, 0.5]
+j = 10
+#distance = sqrt((point[1] - cities[j][1])^2 + (point[2] - cities[j][2])^2)
+distance = sqrt((point[1] - cities[j, 1])^2 + (point[2] - cities[j, 2])^2)
+print("the total distance is: ", distance)
