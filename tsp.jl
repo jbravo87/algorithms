@@ -37,6 +37,14 @@ for i in 1:N-1
     println(cities[itinerary[i]], cities[itinerary[i+1]])
 end
 
+# This try uses the vector in itinerary to determine the lines.
+lines5 = []
+
+#for i in itinerary <- Doesn't work. Throws error that attempt to access 41-element array at element 42.
+for i in 1 : N - 1
+push!(lines5, [[cities[itinerary[i], 1], cities[itinerary[i], 2]], [cities[itinerary[i+1], 1], cities[itinerary[i + 1], 2]]])
+end
+
 points2 = []
 
 for i in 1:N
@@ -76,11 +84,32 @@ size(cities, 2)
 # Now want to bundle into a function.
 # Will take two arguements.
 # An N x 2 matrix for x and y coordinates, and N <- number of cities
-function create_lines(cities)
+function create_lines(cities, itinerary)
     n = size(cities, 1) - 1
     lines = []
     for k in 1:n
-        push!(lines, [[cities[k, 1], cities[k, 2]], [cities[k+1, 1], cities[k+1, 2]]])
+        push!(lines, [[cities[itinerary[k], 1], cities[itinerary[k], 2]], [cities[itinerary[k+1], 1], cities[itinerary[k+1], 2]]])
     end
     return lines
 end
+
+trip2 = sqrt(abs(lines5[1][2][1] - lines5[1][1][1])^2 + abs(lines5[1][2][2] - lines5[1][1][2])^2)
+println("The euclidean distance is: ", trip2)
+
+function displacement( lines )
+    distance = 0
+    for j in 1:length(lines)
+        distance += sqrt(abs(lines[j][2][1] - lines[j][1][1])^2 + abs(lines[j][2][2] - lines[j][1][2])^2)
+    end
+    return distance
+end
+
+totaldistance = displacement(create_lines(cities, itinerary))
+println( "The total distance is: ", totaldistance, " units" )
+
+using Plots
+plot(x, y; marker=(:star8,5), linecolor = :steelblue, markercolor = :darkred, legend = false)
+plot!(xlabel = "x coordinate")
+plot!(ylabel = "y coordinate")
+plot!(title = "tsp - random itinerary")
+

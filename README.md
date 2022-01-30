@@ -1,4 +1,4 @@
-# Stat Analysis
+# Algorithms
 
 A collection of scripts about various different algorithms. Repository includes well-known search and sort algorithms, some pure math modeling, and optimization, for example.
 
@@ -20,3 +20,14 @@ Wanted to present an example of a Diehard Test for randomness. In this case, the
 
 ### LFSR
 For a more sophisticated PRNG, used the Linear Feedback Shift Registers. The algorithm implements the mathematical definition of exclusive OR logic.
+
+## Advanced Optimization
+
+### Traveling Salesperson Problem (TSP)
+
+In reference to the `tsp.jl` script. Using TSP as an example of advanced optimization. Following plot is first iteration using a random iteration. The idea is to minimize the traveling time.
+In TSP, __combinatorial__ __explosion__ happens when implementing brute force solution. This strategy uses the power of the CPU.
+
+<p align="center">
+  <img src="https://github.com/jbravo87/algorithms/blob/abae9e57cce2562f6873617ebfea9eb8d02ac808/tsp_randomitinerary.png"
+</p>
