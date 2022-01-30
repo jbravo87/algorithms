@@ -2,7 +2,13 @@
 
 A collection of scripts about various different algorithms. Repository includes well-known search and sort algorithms, some pure math modeling, and optimization, for example.
 
-## Babylonian Algorithm
+## Mathematical
+
+### Continued Fractions
+
+Recall a continued fraction consists of sums and reciprocals nested in many layers. Built an algorithm in Julia to generate continued fractions. The same script will convert a continued fraction to a decimal representation of a number.
+
+### Babylonian Algorithm
 
 Used the Babylonian algorithm to calculate the square root of a given number. I also used the built in `sqt()` function in Julia to compute the same square root to compare the results of the algorithm. The algorithm converges to the correct answer via guess-and-check strategy.
 The function takes three arguments. While loop to get small enough error. The algorithm changes between y and z being underestimate or overestimate of true value of x.
