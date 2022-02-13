@@ -35,9 +35,9 @@ end
 print(secretpasscode)
 
 # Now to create initial population. Ten randomly generated passcodes of length ten digits.
-population = []
+global population = []
 for j in 1:populationsize
-    chromosomes = []
+    global chromosomes = []
     for k in 1:codelength
          push!(chromosomes, rand(codeinfimum:codesupremum))
     end
@@ -53,7 +53,7 @@ Need to set-up function for the various evolutionary stages including:
 =#
 # Fitness Scoring
 function fitness(population)
-    fitnessscores = []
+    global fitnessscores = []
     for chromosome in population
         matches = 0
         for index in 1:codelength
@@ -69,7 +69,7 @@ end
 
 #Selecting Parents
 function selectparents(fitnessscores)
-    parentslist = []
+    global parentslist = []
     sortedlist = sort(fitnessscores, by = x -> x[2], rev=true)
     for chromosome in sortedlist
         push!(parentslist, chromosome[1])
@@ -84,7 +84,7 @@ Second function used to select parents who make it to breeding to create enough 
 population. Elitism/favorable incorporated here.
 =#
 # First, breeding logic
-function breed(oarent1, parent2)
+function breed(parent1, parent2)
     child = []
     parent1 = parents[1]
     parent2 = parents[2]
@@ -100,6 +100,60 @@ function breed(oarent1, parent2)
         end
     end
     return child
+end
+
+# Breeding and elitism/favorable
+function createchildren(parentspool)
+    children = []
+    numberofnewchildren = length(population) - favorablesize
+    for x in 1:favorablesize
+        push!(children, parentspool[x])
+    end
+    for y in 1:numberofnewchildren
+        parent1 = parentspool[Int(round(rand()*length(parentspool)))]
+        parent2 = parentspool[Int(round(rand()*length(parentspool)))]
+    end
+    return children
+end
+
+#=
+Finally the Mutation round.
+Function runs through all children and i out of 10 will swap one gene for a random new gene.
+=#
+
+function mutation(children_set)
+    for i in 1:length(children_set)
+        if rand() > 0.1
+            continue
+        else
+            mutated_position = Int(round(rand()*codelength))
+            mutation = Int(round(codesupremum*(1-rand())))
+            children_set[i][mutated_position] = mutation
+        end
+    end
+    return children_set
+end
+
+# The functions are all set in place. Create while loop to run through until solution found.
+# Will append best solution based on Fit ness Score at each generation and set up counter for number of generations it takes
+# to crack the passcode.
+
+success = []
+generations = 0
+#@time
+while true
+    fitnessscores = fitness(population)
+    push!(success, max(i[2] for i in fitnessscores))
+    if max(i[1] for i in fitnessscores) == codelength
+        println("cracked in : ", generations)
+        println("secret passcode: ", secretpasscode)
+        println("discovered passcode: ", [i[1] for i in fitnessscores if i[2] == codelength][1])
+        break
+    end
+    parents = selectparents(fitnessscores)
+    children = createchildren(parents)
+    population = mutation(children)
+    generations += 1
 end
 
 
