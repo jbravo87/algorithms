@@ -108,7 +108,8 @@ totaldistance = displacement(create_lines(cities, itinerary))
 println( "The total distance is: ", totaldistance, " units" )
 
 using Plots
-plot(x, y; marker=(:star8,5), linecolor = :steelblue, markercolor = :darkred, legend = false)
+#plot(x, y; marker=(:star8,5), linecolor = :steelblue, markercolor = :darkred, legend = false)
+plot(x, y; linecolor = :steelblue)
 plot!(xlabel = "x coordinate")
 plot!(ylabel = "y coordinate")
 plot!(title = "tsp - random itinerary")
@@ -120,3 +121,35 @@ j = 10
 #distance = sqrt((point[1] - cities[j][1])^2 + (point[2] - cities[j][2])^2)
 distance = sqrt((point[1] - cities[j, 1])^2 + (point[2] - cities[j, 2])^2)
 print("the total distance is: ", distance)
+
+# beginning the implementation of the nearest-neighbor algorithm
+# First, function to determine nearest neighbor of any city.
+some_point = [0.5, 0.5]
+j = 10
+distance = sqrt((point[1] - cities[j, 1])^2 + (point[2] - cities[j, 2])^2)
+
+function findnearest(cities, idx, nnitinerary)
+    point = cities[idx]
+    mindistance = Inf32
+    minidx = 1
+    for i in 1:length(cities)
+        distance = sqrt((point[1] - cities[i, 1])^2 + (point[2] - cities[i, 2])^2)
+        if distance < mindistance && distance > 0 && i ∉ nnitinerary
+            mindistance = distance
+            minidx = i
+        end
+    end
+    return minidx
+end
+# Do Nearest Neighbor <- from first city then adds closest city at every step to
+# most recetly added city until all cities have been visited.
+function donn(cities, N)
+    # First city is where the salesperson starts.
+    nnitinerary = [0]
+    for k in 1:N
+        next = findnearest(cities, nnitinerary[length(nnitinerary)], nnitinerary)
+        push!(nnitinerary, next)
+    end
+    return nnitinerary
+end
+
