@@ -9,8 +9,8 @@ using Random
 #Random.seed!(3); randstring()
 
 # Random Number Generator -> rng
-rng = Random.seed!(1729)
-
+#rng = Random.seed!(1729)
+rng = Random.seed!(128)
 N = 41
 
 # A random permutation command experimented with
@@ -113,6 +113,7 @@ plot(x, y; linecolor = :steelblue)
 plot!(xlabel = "x coordinate")
 plot!(ylabel = "y coordinate")
 plot!(title = "tsp - random itinerary")
+plot()
 
 # Will now implement the nearest neighbor algorithm.
 # Following will lead to function that finds the nearest neighbor
@@ -120,7 +121,7 @@ point = [0.5, 0.5]
 j = 10
 #distance = sqrt((point[1] - cities[j][1])^2 + (point[2] - cities[j][2])^2)
 distance = sqrt((point[1] - cities[j, 1])^2 + (point[2] - cities[j, 2])^2)
-print("the total distance is: ", distance)
+println("the total distance is: ", distance)
 
 # beginning the implementation of the nearest-neighbor algorithm
 # First, function to determine nearest neighbor of any city.
@@ -131,7 +132,7 @@ distance = sqrt((point[1] - cities[j, 1])^2 + (point[2] - cities[j, 2])^2)
 function findnearest(cities, idx, nnitinerary)
     point = cities[idx]
     mindistance = Inf32
-    minidx = 1
+    minidx = 0
     for i in 1:length(cities)
         distance = sqrt((point[1] - cities[i, 1])^2 + (point[2] - cities[i, 2])^2)
         if distance < mindistance && distance > 0 && i ∉ nnitinerary
@@ -145,7 +146,7 @@ end
 # most recetly added city until all cities have been visited.
 function donn(cities, N)
     # First city is where the salesperson starts.
-    nnitinerary = [0]
+    nnitinerary = [1]
     for k in 1:N
         next = findnearest(cities, nnitinerary[length(nnitinerary)], nnitinerary)
         push!(nnitinerary, next)
@@ -153,3 +154,10 @@ function donn(cities, N)
     return nnitinerary
 end
 
+function plotitinerary(cities, itin, plottitle)
+    linecollection = create_lines(cities, itin)
+    plot(x, y; linecolor = :steelblue)
+    plot!(xlabel = "x coordinate")
+    plot!(ylabel = "y coordinate")
+    plot!(title = plottitle)
+end

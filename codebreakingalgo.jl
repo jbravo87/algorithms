@@ -82,7 +82,8 @@ Positions are used to combine the Genes of two parents to create new Child.
 Second function used to select parents who make it to breeding to create enough children for a new
 population. Elitism/favorable incorporated here.
 =#
-parents = selectparents(fitness_scores)
+score1 = fitness(population)
+parents = selectparents(score1)
 # First, breeding logic
 function breed(parent1, parent2)
     child = []
@@ -165,11 +166,11 @@ x2 = selectparents(x1)
 x3 = createchildren(x2)
 x4 = mutation(x3)
 while true
-    push!(success, max(i[2] for i in x1))
-    if max(i[1] for i in x1) == passcode_length
+    push!(success, i[2] for i in x1)
+    if (i[1] for i in x1) == passcode_length
         println("cracked in : ", generations)
         println("secret passcode: ", secret_code)
-        println("discovered passcode: ", [i[1] for i in x1 if i[2] == passcode_length][1])
+        println("discovered passcode: ", [i[1] for i in x1 if i[2] == passcode_length])
         break
     end
     global generations += 1
