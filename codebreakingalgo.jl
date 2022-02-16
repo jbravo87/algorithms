@@ -52,7 +52,7 @@ Need to set-up function for the various evolutionary stages including:
 =#
 # Fitness Scoring
 function fitness(population)
-    global fitness_scores = []
+    fitness_scores = []
     for chromosome in population
         matches = 0
         for index in 1:passcode_length
@@ -67,13 +67,16 @@ function fitness(population)
 end
 
 #Selecting Parents
+# For function below need to pick only top five
 function selectparents(fitness_scores)
     parents_list = []
     sorted_list = sort(fitness_scores, by = x -> x[2], rev=true)
     for chromosome in sorted_list
         push!(parents_list, chromosome[1])
     end
+    parents_list = parents_list[1:num_parents]
     return parents_list
+    #return parents_list
 end
 #=
 Breeding to create new Children.
@@ -82,8 +85,8 @@ Positions are used to combine the Genes of two parents to create new Child.
 Second function used to select parents who make it to breeding to create enough children for a new
 population. Elitism/favorable incorporated here.
 =#
-score1 = fitness(population)
-parents = selectparents(score1)
+##score1 = fitness(population)
+##parents = selectparents(score1)
 # First, breeding logic
 function breed(parent1, parent2)
     child = []
